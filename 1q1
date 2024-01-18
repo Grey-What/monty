@@ -19,7 +19,7 @@ void free_list(char **list)
 }
 
 /**
- * getvalue - extracts argument value from opcode line
+ * getvalue: extracts argument value from opcode line
  * @opcode_line: opcode line from file.
  * Return: void
  */
