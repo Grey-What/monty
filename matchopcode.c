@@ -2,13 +2,13 @@
 /**
  * match_opcode - matching file line text to relevant function
  *
- * @head: pointer to head of doubly linked list/bottom of stack
+ * @stack: pointer to top of stack
  * @opcode_line: line of opcode retrieved from file
  * @line_nr: line number of opcode line
  *
  * Return: void
  */
-void match_opcode(stack_t **head, char *opcode_line, unsigned int line_nr)
+void match_opcode(stack_t **stack, char *opcode_line, unsigned int line_nr)
 {
 	int i = 0;
 	instruction_t match_func[] = {
@@ -22,7 +22,7 @@ void match_opcode(stack_t **head, char *opcode_line, unsigned int line_nr)
 			    match_func[i].opcode,
 			    strlen(match_func[i].opcode)) == 0)
 		{
-			match_func[i].f(head, line_nr);
+			match_func[i].f(stack, line_nr);
 			return;
 		}
 		i++;

@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	char *opcode_line = NULL;
 	size_t char_read = 0;
 	FILE *opcode_file = NULL;
-	stack_t *head = NULL;
+	stack_t *stack = NULL;
 
 	if (argc != 2)
 	{
@@ -32,13 +32,13 @@ int main(int argc, char **argv)
 	while (getline(&opcode_line, &char_read, opcode_file) != -1)
 	{
 		line_nr++;
-		match_opcode(&head, opcode_line, line_nr);
+		match_opcode(&stack, opcode_line, line_nr);
 		free(container.opcode_command);
 		free(opcode_line);
 		opcode_line = NULL;
 	}
 	free(opcode_line);
 	fclose(opcode_file);
-	free_stack(&head);
+	free_stack(&stack);
 	return (0);
 }
