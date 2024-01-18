@@ -28,6 +28,7 @@ void getvalue(char *opcode_line, unsigned int line_nr)
 {
 	int i = 0, count = 0;
 	char **list = NULL, *token = NULL, *temp;
+	(void)line_nr;
 
 	temp = strdup(opcode_line);
 	if (!temp)
@@ -64,12 +65,7 @@ void getvalue(char *opcode_line, unsigned int line_nr)
 	}
 	list[i] = NULL;
 	container.opcode_command = strdup(list[0]);
-	if (list[1] != NULL)
+	if (list[1] != NULL && (strcmp(list[0], "push") == 0))
 		container.value = atoi(list[1]);
-	else
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_nr);
-		exit(EXIT_FAILURE);
-	}
 	free_list(list);
 }
