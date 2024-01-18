@@ -18,9 +18,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 stack_t *top;
 
@@ -34,8 +34,8 @@ stack_t *top;
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 instruction_t func_match[3];
 
@@ -43,8 +43,6 @@ instruction_t func_match[3];
  * struct container_s - store variables, value, file, opcode line
  *
  * @value: argument to op code
- * @file: pointer to file
- * @opcode_line: content of line in file
  * @opcode_command: monty command
  *
  * Description: carries values through program
