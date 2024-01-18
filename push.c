@@ -2,12 +2,12 @@
 /**
  * push - creates new node in doubly linked list
  *
- * @head: pointer to doubly linked list
+ * @stack: pointer to top of stack
  * @line_number: line number of current opcode
  *
  * Return: void
  */
-void push(stack_t **head, unsigned int line_number)
+void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new = NULL;
 	(void)line_number;
@@ -21,11 +21,9 @@ void push(stack_t **head, unsigned int line_number)
 	new->n = container.value;
 
 	new->next = NULL;
-	new->prev = top;
+	new->prev = (*stack);
 
-	if (top != NULL)
-		top->next = new;
-	else
-		*head = new;
-	top = new;
+	if ((*stack) != NULL)
+		(*stack)->next = new;
+	(*stack) = new;
 }
