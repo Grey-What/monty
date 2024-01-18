@@ -1,31 +1,30 @@
-#include "monthy.h"
+#include "monty.h"
 /**
  * match_opcode - matching file line text to relevant function
  *
- * @opcode_line: line of opcode
+ * @head: pointer to head of doubly linked list/bottom of stack
+ * @opcode_line: line of opcode retrieved from file
+ * @line_nr: line number of opcode line
  *
  * Return: void
  */
-void match_opcode(char *opcode_line)
+void match_opcode(stack_t **head, char *opcode_line, unsigned int line_nr)
 {
 	int i = 0;
-	stack_t *pointer = malloc(sizeof(stack_t));
-	if (pointer == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-
 	instruction_t match_func[] = {
-		{"push", push}, {"pall", pall}; {NULL, NULL}};
+		{"push", push}, {"pall", pall}, {NULL, NULL}};
+
+	getvalue(opcode_line);
 
 	while (match_func[i].opcode != NULL)
 	{
-		if (strncmp(opcode_line, match_func.opcode, len(match_func.opcode[]) == 0)
-			{
-				match_func[i].f(&pointer, line_nr);
-			}
+		if (strncmp(container.opcode_command, match_func[i].opcode, strlen(match_func[i].opcode)) == 0)
+		{
+			match_func[i].f(head, line_nr);
+			return;
+		}
+		i++;
 	}
-	fprintf(sterr, "L%d: unknown instruction %s\n", line_nr, opcode_line);
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_nr ,opcode_line);
 	exit(EXIT_FAILURE);
 }
