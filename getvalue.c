@@ -17,7 +17,34 @@ void free_list(char **list)
 	}
 	free(list);
 }
+/**
+ * token_count - counts number of tokens
+ *
+ * @opcode_line: string to tokenize
+ *
+ * Return: number of tokens
+ */
+int token_count(char *opcode_line)
+{
+	char *temp, *token = NULL;
+	int count = 0;
 
+	temp = strdup(opcode_line);
+	if (!temp)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	token = strtok(temp, " ");
+	while (token != NULL)
+	{
+		count++;
+		token = strtok(NULL, " ");
+	}
+	free(temp);
+	return (count);
+}
 /**
  * getvalue - extracts argument value from opcode line
  * @opcode_line: opcode line from file.
@@ -27,22 +54,10 @@ void free_list(char **list)
 void getvalue(char *opcode_line, unsigned int line_nr)
 {
 	int i = 0, count = 0;
-	char **list = NULL, *token = NULL, *temp;
+	char **list = NULL, *token = NULL;
 	(void)line_nr;
 
-	temp = strdup(opcode_line);
-	if (!temp)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	token = strtok(temp, " ");
-	while (token != NULL)
-	{
-		count++;
-		token = strtok(NULL, " ");
-	}
-	free(temp);
+	count = token_count(opcode_line);
 
 	list = malloc(sizeof(char *) * (count + 1));
 	if (list == NULL)
@@ -50,6 +65,7 @@ void getvalue(char *opcode_line, unsigned int line_nr)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
+
 	token = strtok(opcode_line, " ");
 	while (token != NULL)
 	{
@@ -64,8 +80,16 @@ void getvalue(char *opcode_line, unsigned int line_nr)
 		i++;
 	}
 	list[i] = NULL;
+
 	container.opcode_command = strdup(list[0]);
-	if (list[1] != NULL && (strcmp(list[0], "push") == 0))
+	if (count > 1 && (strcmp(list[0], "push") != 0))
+	{
+		fprintf(stderr, "L%d: unknown instruction %s\n",
+			line_nr, opcode_line);
+		exit(EXIT_FAILURE);
+	}
+	else if (list[1] != NULL && (strcmp(list[0], "push") == 0))
 		container.value = atoi(list[1]);
+
 	free_list(list);
 }
