@@ -57,7 +57,8 @@ container_t container;
 void match_opcode(stack_t **head, char *opcode_line, unsigned int line_number);
 void free_list(char **list);
 void getvalue(char *opcode_line, unsigned int line_number);
-void free_stack(stack_t **head);
+void free_stack(stack_t **stack);
+
 void pop(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
