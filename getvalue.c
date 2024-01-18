@@ -1,23 +1,5 @@
 #include "monty.h"
 /**
- * check_number - checks if a string can be a number
- *
- * @str: string to check
- *
- * Return: 1 if it is a number  or 0 if not
- */
-int check_number(char *str)
-{
-	int i;
-
-	for (i = 0; str[i] != '\0'; i++)
-	{
-		if (!isdigit(str[i]))
-			return (0);
-	}
-	return (1);
-}
-/**
  * free_list - frees an array of pointers
  *
  * @list: array of pointers to free
@@ -109,13 +91,6 @@ void getvalue(char *opcode_line, unsigned int line_nr)
 	}
 	else if (list[1] != NULL && (strcmp(list[0], "push") == 0))
 	{
-		if (check_number(list[1]) != 1)
-		{
-			fprintf(stderr, "L%d: unknown instruction %s",
-			line_nr, opcode_line);
-			exit(EXIT_FAILURE);
-		}
-		else
 			container.value = atoi(list[1]);
 	}
 	free_list(list);
