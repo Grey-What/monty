@@ -14,7 +14,7 @@ void match_opcode(stack_t **head, char *opcode_line, unsigned int line_nr)
 	instruction_t match_func[] = {
 		{"push", push}, {"pall", pall}, {NULL, NULL}};
 
-	getvalue(opcode_line);
+	getvalue(opcode_line, line_nr);
 
 	while (match_func[i].opcode != NULL)
 	{
