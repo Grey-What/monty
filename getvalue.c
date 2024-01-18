@@ -54,7 +54,7 @@ int token_count(char *opcode_line)
 void getvalue(char *opcode_line, unsigned int line_nr)
 {
 	int i = 0, count = 0;
-	char **list = NULL, *token = NULL;
+	char **list = NULL, *token = NULL, *temp;
 	(void)line_nr;
 
 	count = token_count(opcode_line);
@@ -65,8 +65,8 @@ void getvalue(char *opcode_line, unsigned int line_nr)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-
-	token = strtok(opcode_line, " ");
+	temp = strdup(opcode_line);
+	token = strtok(temp, " ");
 	while (token != NULL)
 	{
 		list[i] = malloc(sizeof(char) * (strlen(token) + 1));
@@ -80,11 +80,12 @@ void getvalue(char *opcode_line, unsigned int line_nr)
 		i++;
 	}
 	list[i] = NULL;
+	free(temp);
 
 	container.opcode_command = strdup(list[0]);
 	if (count > 1 && (strcmp(list[0], "push") != 0))
 	{
-		fprintf(stderr, "L%d: unknown instruction %s\n",
+		fprintf(stderr, "L%d: unknown instruction %s",
 			line_nr, opcode_line);
 		exit(EXIT_FAILURE);
 	}
