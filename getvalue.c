@@ -86,12 +86,10 @@ void getvalue(char *opcode_line, unsigned int line_nr)
 	if (count > 1 && (strcmp(list[0], "push") != 0))
 	{
 		fprintf(stderr, "L%d: unknown instruction %s",
-			line_nr, opcode_line);
+				line_nr, opcode_line);
 		exit(EXIT_FAILURE);
 	}
 	else if (list[1] != NULL && (strcmp(list[0], "push") == 0))
-	{
-			container.value = atoi(list[1]);
-	}
+		container.value = atoi(list[1]);
 	free_list(list);
 }
