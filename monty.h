@@ -22,7 +22,7 @@ typedef struct stack_s
 	struct stack_s *prev;
 	struct stack_s *next;
 } stack_t;
-stack_t *top;
+
 
 /**
  * struct instruction_s - opcode and its function
@@ -58,7 +58,7 @@ void match_opcode(stack_t **head, char *opcode_line, unsigned int line_number);
 void free_list(char **list);
 void getvalue(char *opcode_line, unsigned int line_number);
 void free_stack(stack_t **head);
-
+void pop(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
