@@ -18,13 +18,15 @@ void match_opcode(stack_t **head, char *opcode_line, unsigned int line_nr)
 
 	while (match_func[i].opcode != NULL)
 	{
-		if (strncmp(container.opcode_command, match_func[i].opcode, strlen(match_func[i].opcode)) == 0)
+		if (strncmp(container.opcode_command,
+			    match_func[i].opcode,
+			    strlen(match_func[i].opcode)) == 0)
 		{
 			match_func[i].f(head, line_nr);
 			return;
 		}
 		i++;
 	}
-	fprintf(stderr, "L%d: unknown instruction %s\n", line_nr ,opcode_line);
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_nr, opcode_line);
 	exit(EXIT_FAILURE);
 }
